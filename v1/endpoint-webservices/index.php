@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json');
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods:  POST");
+header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Allow-Headers: Authorization, Content-Type");
 // Configuración del correo del webmaster
 $webmaster_email = 'benalibenaliabdelkbir@gmail.com';
@@ -20,21 +20,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Enviar correo
     $subject = "Mensaje de $name";
     $body = "Nombre: $name\nCorreo: $email\n\nMensaje:\n$message";
+    $headers = 'From: ' . $webmaster_email . "\r\n" .
+               'Reply-To: ' . $email . "\r\n" .
+               'X-Mailer: PHP/' . phpversion() . "\r\n" .
+               'Return-Path: ' . $webmaster_email;
     // Respuesta del servidor en json
-    if (mail($webmaster_email, $subject, $body)) {
+    if (mail($webmaster_email, $subject, $body, $headers)) {
         echo json_encode([
             'status' => 'success',
-             'message' => 'Correo enviado correctamente.'
-            ]);
+            'message' => 'Correo enviado correctamente.'
+        ]);
     } else {
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
-             'message' => 'Error al enviar el correo.'
-            ]);
+            'message' => 'Error al enviar el correo.'
+        ]);
     }
 }
-?>
 
 
 

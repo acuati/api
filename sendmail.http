@@ -1,1 +1,37 @@
-GET http://localhost/api/v1/endpoint-webservices/
+### Prueba de correo exitoso
+POST http://localhost/api/v1/endpoint-webservices/
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john@example.com",
+    "message": "Hello, this is my personal adress"
+}
+### Prueba de correo con algún dato faltante
+POST http://localhost/api/v1/endpoint-webservices/
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": "john@example.com",
+    "message": "Hello, this is my personal adress"
+}
+### Prueba de correo con email erróneo
+POST http://localhost/api/v1/endpoint-webservices/
+Content-Type: application/json
+
+{
+    "name": "John Doe",
+    "email": "john.example.es",
+    "message": "Hello, this is my personal adress"
+}
+### Prueba de correo con todos los datos faltantes
+POST http://localhost/api/v1/endpoint-webservices/
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": "",
+    "message": ""
+}
+
